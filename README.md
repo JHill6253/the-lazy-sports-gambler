@@ -6,6 +6,10 @@ private repo to store the lazy sports gamblers source code
 ## Draft of prototype architecture 
 
 ![Architecture Map](./Docs/Images/TheLazyGambler.jpg)
+
+![FLOWMap](./Docs/Images/SchedulerFlow.jpg)
+
+![TextService](./Docs/Images/TextServiceFlow.jpg)
 ## Dockerfiles 
 ### NBA_ML_BETS_API commands:
 * Build image
