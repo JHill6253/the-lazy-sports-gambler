@@ -24,6 +24,7 @@ class Model():
         for i in range(0,len(self.gamesTonight),2):
             homeTeam = Team(self.gamesTonight[i]['teamAbrev'], self.gamesTonight[i]['teamId'])
             homeTeamData = homeTeam.get_active_team_data()
+            print(homeTeamData)
             homeTeamPredictions = Prediction(homeTeamData)
             awayTeam = Team(self.gamesTonight[i+1]['teamAbrev'], self.gamesTonight[i+1]['teamId'])
             awayTeamData = awayTeam.get_active_team_data()
@@ -54,3 +55,5 @@ class Model():
             game = pd.DataFrame([[team1_abbreviation,(round((team1_prediction.item(0)+team1_margin),0)),team2_abbreviation,(round((team2_prediction.item(0)+team2_margin),0)),datetime.today(), team1ptavg, team2ptavg]],columns=['Home','HomeScore','Away','AwayScore','Date','Home Point Avg','Away Point Avg'])
             games.append(game)
         return pd.concat(games)
+tes = Model()
+print(tes)

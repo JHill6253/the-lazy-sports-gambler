@@ -45,8 +45,8 @@ def cleanGames(data):
                     "teamId":game['homeTeam']['teamId']
                     },
                 "away":{
-                    "teamAbrev" : game['homeTeam']['teamTricode'],
-                    "teamId":game['homeTeam']['teamId']
+                    "teamAbrev" : game['awayTeam']['teamTricode'],
+                    "teamId":game['awayTeam']['teamId']
                     }
                     })
     return {"games": games }
