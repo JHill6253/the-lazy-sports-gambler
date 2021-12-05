@@ -7,6 +7,9 @@ numpy
 datetime
 nba_api
 twilio
-pymongo
 flask
 apscheduler
+requests
+certifi
+pymongo
+dnspython

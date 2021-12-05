@@ -2,7 +2,7 @@ from flask import Flask, request, json, Response
 from pymongo import MongoClient
 import logging as log
 import certifi
-
+import os 
 
 
 app = Flask(__name__)
@@ -115,5 +115,5 @@ def mongo_delete():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001, host='0.0.0.0')
+    app.run(debug= True, port = os.getenv('PORT'), host='0.0.0.0')
 

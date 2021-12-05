@@ -26,6 +26,8 @@ from nba_api.stats.endpoints import (
 )
 from nba_api.live.nba.endpoints import scoreboard
 
+from ML import Game_Res
+
 # from  ML_Models.model import Model
 from Text_Service.TextService import textCLI
 import pymongo
@@ -86,6 +88,22 @@ def text():
     payload = json.dumps({
     "database": "nba_test",
     "collection": "user"
+    })
+    headers = {
+    'Content-Type': 'application/json'
+    }
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+
+    
+    return {'response': response.text}
+@app.route('/fetchGames', methods=['GET'])
+def fetchGames():
+    url = "http://localhost:5001/mongodb"
+    payload = json.dumps({
+    "database": "nba_test",
+    "collection": "game"
     })
     headers = {
     'Content-Type': 'application/json'

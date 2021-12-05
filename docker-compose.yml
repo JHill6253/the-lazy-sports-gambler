@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    command: python app.py
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/python-flask
+  scheduler:
+    build: .
+    command: python scheduler.py
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/python-flask
