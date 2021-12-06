@@ -4,7 +4,12 @@ import logging as log
 import certifi
 import os 
 from threading import Thread
+from datetime import date
+from dotenv import load_dotenv
 
+load_dotenv()
+
+MONGO_ENDPOINT = os.getenv("MONGO_ENDPOINT")
 app = Flask(__name__)
 
 
@@ -12,10 +17,8 @@ class MongoAPI:
     def __init__(self, data):
         log.basicConfig(level=log.DEBUG, format='%(asctime)s %(levelname)s:\n%(message)s\n')
         ca = certifi.where()
-        # self.client = MongoClient("mongodb://localhost:27017/")  # When only Mongo DB is running on Docker.
-        self.client = MongoClient(f"mongodb+srv://new-user:demoPassword@cluster0.hwovc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", tlsCAFile=ca)#"mongodb+srv://new-user:demoPassword@cluster0.hwovc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", ssl_cert_reqs=ssl.CERT_NONE)     # When both Mongo and This application is running on
-                                                                    # Docker and we are using Docker Compose
-
+        self.client = MongoClient(MONGO_ENDPOINT, tlsCAFile=ca)
+        self.today = date.today()
         database = data['database']
         collection = data['collection']
         cursor = self.client[database]
@@ -43,7 +46,11 @@ class MongoAPI:
         response = self.collection.update_one(filt, updated_data)
         output = {'Status': 'Successfully Updated' if response.modified_count > 0 else "Nothing was updated."}
         return output
-
+    def filterTodayDate(self):
+        log.info('Reading All Data')
+        documents = self.collection.find({"date":self.today.strftime("%m/%d/%y")})
+        output = [{item: data[item] for item in data if item != '_id'} for data in documents]
+        return output
     def delete(self, data):
         log.info('Deleting Data')
         filt = data['Filter']
@@ -71,7 +78,18 @@ def mongo_read():
     return Response(response=json.dumps(response),
                     status=200,
                     mimetype='application/json')
-
+@app.route('/date', methods=['GET'])
+def mongo_filter_date():
+    data = request.json
+    if data is None or data == {}:
+        return Response(response=json.dumps({"Error": "Please provide connection information"}),
+                        status=400,
+                        mimetype='application/json')
+    obj1 = MongoAPI(data)
+    response = obj1.filterTodayDate()
+    return Response(response=json.dumps(response),
+                    status=200,
+                    mimetype='application/json')
 
 @app.route('/mongodb', methods=['POST'])
 def mongo_write():

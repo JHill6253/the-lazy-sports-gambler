@@ -9,8 +9,8 @@ import math
 import numpy as np
 import datetime
 import json
-
-import nba_api
+from datetime import date
+# import nba_api
 from nba_api.stats.static import teams, players
 from nba_api.stats.endpoints import playercareerstats, leaguegamefinder, playerdashboardbyclutch, playergamelogs, commonplayerinfo, teamplayeronoffdetails, teamgamelogs
 
@@ -70,25 +70,9 @@ class Prediction(object):
         #get key metrics
         loss, mae, mse = model.evaluate(normed_test_data, self.test_labels, verbose=0)
 
-   #     print("Testing set Mean Abs Error: {:5.2f} Points Scored".format(mae))
         
         #make predictions and then plot them in realation to the actual values
         test_predictions = model.predict(normed_test_data).flatten()
-
-#         plt.scatter(self.test_labels, test_predictions)
-#         plt.xlabel("True Values [Points Scored]")
-#         plt.ylabel("Predictions [Points Scored]")
-#         plt.axis('equal')
-#         plt.axis('square')
-#         plt.xlim([60, plt.ylim()[1]])
-#         plt.ylim([60, plt.ylim()[1]])
-#         _ = plt.plot([-100,200], [-100, 200])
-
-        
-        
-        #print tests for reference
-   #     print(self.test_labels)
-   #     print(test_predictions)
         
         #make prediction
         normed_prediction_data = self.sigmoid(prediction_data)
@@ -293,6 +277,6 @@ def Game_Res(team1_abbreviation,team2_abbreviation):
     team1ptavg = round(team1ptavg.iloc[0],0)
     team2ptavg = team2_prediction_data['Team Point Average']
     team2ptavg = round(team2ptavg.iloc[0],0)
-
-    game = {'Home' : team1_abbreviation,'HomeScore' : round((team1_prediction.item(0)+team1_margin),0),'Away' : team2_abbreviation,'AwayScore': round((team2_prediction.item(0)+team2_margin),0),'Date': datetime.date.today(),'HomePointAvg': team1ptavg,'AwayPoint Avg': team2ptavg }
+    today = date.today()
+    game = {'Home' : team1_abbreviation,'HomeScore' : str(round((team1_prediction.item(0)+team1_margin),0)),'Away' : team2_abbreviation,'AwayScore': str(round((team2_prediction.item(0)+team2_margin),0)),'Date': today.strftime("%m/%d/%y"),'HomePointAvg': str(team1ptavg),'AwayPoint Avg': str(team2ptavg) }
     return game 
