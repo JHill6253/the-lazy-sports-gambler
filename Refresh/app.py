@@ -3,7 +3,7 @@ from pymongo import MongoClient
 import logging as log
 import certifi
 import os 
-
+from threading import Thread
 
 app = Flask(__name__)
 
@@ -113,6 +113,14 @@ def mongo_delete():
                     status=200,
                     mimetype='application/json')
 
+
+
+# def run():
+#   app.run(host='0.0.0.0',port=5000)
+
+# def mongo_api():
+#     t = Thread(target=run)
+#     t.start()
 
 if __name__ == '__main__':
     app.run(debug= True, port = os.getenv('PORT'), host='0.0.0.0')

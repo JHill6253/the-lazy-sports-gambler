@@ -1,0 +1,15 @@
+#imports
+pandas  
+seaborn 
+tensorflow 
+matplotlib
+numpy 
+datetime
+nba_api
+twilio
+flask
+apscheduler
+requests
+certifi
+pymongo
+dnspython

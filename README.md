@@ -38,3 +38,6 @@ docker build -t text_service:latest .
 ```yaml
 docker run -d -p 5000:5000 text_service
 ```
+BOT Token =OTE3MTg1NzMzMjEzNjkxOTE1.Ya1Bxw.hNX-KOYZu2AcTv1wJMxUHy7Mkg0
+
+https://discord.com/api/oauth2/authorize?client_id=917177302566182932&permissions=519232&scope=bot
