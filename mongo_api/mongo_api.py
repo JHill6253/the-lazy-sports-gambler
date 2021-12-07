@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 MONGO_ENDPOINT = os.getenv("MONGO_ENDPOINT")
-app = Flask(__name__)
+app = Flask("")
 
 
 class MongoAPI:
@@ -46,7 +46,8 @@ class MongoAPI:
         response = self.collection.update_one(filt, updated_data)
         output = {'Status': 'Successfully Updated' if response.modified_count > 0 else "Nothing was updated."}
         return output
-    def filterTodayDate(self):
+
+    def read_date(self):
         log.info('Reading All Data')
         documents = self.collection.find({"date":self.today.strftime("%m/%d/%y")})
         output = [{item: data[item] for item in data if item != '_id'} for data in documents]
@@ -86,7 +87,7 @@ def mongo_filter_date():
                         status=400,
                         mimetype='application/json')
     obj1 = MongoAPI(data)
-    response = obj1.filterTodayDate()
+    response = obj1.read_date()
     return Response(response=json.dumps(response),
                     status=200,
                     mimetype='application/json')
@@ -133,13 +134,13 @@ def mongo_delete():
 
 
 
-# def run():
-#   app.run(host='0.0.0.0',port=5000)
+def run():
+  app.run(host='0.0.0.0',port=5000)
 
-# def mongo_api():
-#     t = Thread(target=run)
-#     t.start()
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
 
-if __name__ == '__main__':
-    app.run(debug= True, port = os.getenv('PORT'), host='0.0.0.0')
+# if __name__ == '__main__':
+#     app.run(debug= True, port = os.getenv('PORT'), host='0.0.0.0')
 

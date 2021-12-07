@@ -1,16 +1,12 @@
 import pandas as pd 
-import seaborn as sns
 import tensorflow as tf
 from tensorflow import keras
-from tensorflow.keras import layers
+
 import time
-import matplotlib.pyplot as plt
+
 import math
 import numpy as np
-import datetime
-import json
 from datetime import date
-# import nba_api
 from nba_api.stats.static import teams, players
 from nba_api.stats.endpoints import playercareerstats, leaguegamefinder, playerdashboardbyclutch, playergamelogs, commonplayerinfo, teamplayeronoffdetails, teamgamelogs
 
@@ -271,8 +267,6 @@ def Game_Res(team1_abbreviation,team2_abbreviation):
     team2_prediction, team2_margin = team2_prediction_class.make_prediction(team2_prediction_data)
 
 
-    print("check1")
-
     team1ptavg = team1_prediction_data['Team Point Average']
     team1ptavg = round(team1ptavg.iloc[0],0)
     team2ptavg = team2_prediction_data['Team Point Average']
@@ -280,3 +274,8 @@ def Game_Res(team1_abbreviation,team2_abbreviation):
     today = date.today()
     game = {'Home' : team1_abbreviation,'HomeScore' : str(round((team1_prediction.item(0)+team1_margin),0)),'Away' : team2_abbreviation,'AwayScore': str(round((team2_prediction.item(0)+team2_margin),0)),'Date': today.strftime("%m/%d/%y"),'HomePointAvg': str(team1ptavg),'AwayPoint Avg': str(team2ptavg) }
     return game 
+def get_game_prediction(game):
+    home = game["home"]["teamAbrev"]
+    away = game["away"]["teamAbrev"]
+    res = Game_Res(home,away)
+    return res

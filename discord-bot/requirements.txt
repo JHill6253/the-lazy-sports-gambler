@@ -1,7 +1,6 @@
 #imports
 pandas  
 seaborn 
-tensorflow 
 matplotlib
 numpy 
 datetime
@@ -13,3 +12,5 @@ requests
 certifi
 pymongo
 dnspython
+discord
+tensorflow
