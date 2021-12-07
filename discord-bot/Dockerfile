@@ -1,6 +1,6 @@
 FROM python:3
 FROM gorialis/discord.py
-
+FROM tensorflow/tensorflow:2.1.0-py3
 # RUN mkdir -p /usr/src/bot
 WORKDIR /code
 ENV DISCORD_TOKEN=OTE3MTg1NzMzMjEzNjkxOTE1.Ya1Bxw.hNX-KOYZu2AcTv1wJMxUHy7Mkg0

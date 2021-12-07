@@ -13,4 +13,5 @@ certifi
 pymongo
 dnspython
 discord
-tensorflow
+python-dotenv
+# tensorflow
