@@ -1,25 +1,6 @@
 from datetime import date
 
 
-
-def clean_pred_res(data):
-    games = []
-    today = date.today()
-    for game in data:
-        games.append({"home":{
-                    "teamAbrev" : game['Home'],
-                    "teamScore":game['HomeScore']
-                    },
-                "away":{
-                    "teamAbrev" : game['Away'],
-                    "teamScore":game['AwayScore']
-                    }
-        })
-    return { 
-        "games" :games,
-        "date" : today.strftime("%m/%d/%y")
-        }
-
 def clean_new_games(data):
     games = []
     today = date.today()
