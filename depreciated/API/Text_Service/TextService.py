@@ -8,8 +8,8 @@ from twilio.rest import Client
 # and set the environment variables. See http://twil.io/secure
 class textCLI:
     def __init__(self):
-        self.account_sid = 'ACbe09a36be57c1ee1615bcedeebc1b9ea'
-        self.auth_token = '308676297e51cc80872e60553f0257f7'
+        self.account_sid = None
+        self.auth_token = None
         self.client = Client(self.account_sid, self.auth_token)
     def sendMessage(self, number, messageBody):
         message = self.client.messages \
