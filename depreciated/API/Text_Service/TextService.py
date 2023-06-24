@@ -1,8 +1,6 @@
 
 
 import os
-# os.environ['TWILIO_ACCOUNT_SID'] = 'SK980a6050ecb8d6dd6b81978ac6699c46'
-# os.environ['TWILIO_AUTH_TOKEN'] = '308676297e51cc80872e60553f0257f7'
 from twilio.rest import Client
 
 
